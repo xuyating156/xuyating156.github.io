@@ -3,13 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <title>weather</title>
+    <style>
+        main {
+            width: 520px;
+            margin: auto;
+        }
+        body {
+            color: darkcyan;
+        }
+        image {
+            position: absolute;
+            width: 600px;
+        }
+        div {
+            display: none;
+
+        }
+    </style>
 </head>
 <body>
-<input placeholder="City">
-<button>Search</button>
+<main>
+    <input placeholder="City" value="北京">
+    <button>Search</button>
+    <div>
+
+        <table>
+            <tr>
+                <td width="100">实时天气</td>
+                <td id="city" width="100"></td>
+                <td width="100"> 3</td>
+            </tr>
+
+            <tr>
+                <td id="cond"></td>
+                <td id="cond1"></td>
+                <td> 4</td>
+
+            </tr>
+        </table>
+    </div>
+</main>
 <script src="jquery-3.3.1.js"></script>
 <script>
-    var api = 'https://free-api.heweather.net/s6/air/now';
+    var api = 'https://free-api.heweather.net/s6/weather';
     var key = 'a847c9cdfb7b40378cabfa4f184e79ff';
     // 就绪函数
     $(function () {
@@ -21,6 +57,14 @@
                 'dataType': 'json',
                 success: function (data) {
                     console.log(data);
+                    var cond = data.HeWeather6[0].now.cond_txt;
+                    var cond1 = data.HeWeather6[0].now. wind_dir;
+                    // console.log(data.HeWeather6[0].now.cond_txt);
+                    // $.each
+                    $('div').show();
+                    $('#city').text(location);
+                    $('#cond').text(cond);
+                    $('#cond1').text(cond1);
                 }
             });
         })
